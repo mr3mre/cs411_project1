@@ -1,0 +1,50 @@
+[
+    {
+        "user_name": "admin",
+        "password": "Admin@123",
+        "group": "admin",
+        "id": null,
+        "login_attempts": 0,
+        "locked_until": null
+    },
+    {
+        "user_name": "dr_smith",
+        "password": "DrSmith@123",
+        "group": "doctor",
+        "id": null,
+        "login_attempts": 0,
+        "locked_until": null
+    },
+    {
+        "user_name": "nurse_jones",
+        "password": "Nurse@24",
+        "group": "nurse",
+        "id": null,
+        "login_attempts": 0,
+        "locked_until": null
+    },
+    {
+        "user_name": "receptionist",
+        "password": "Front@2024",
+        "group": "staff",
+        "id": null,
+        "login_attempts": 0,
+        "locked_until": null
+    },
+    {
+        "user_name": "lab_tech",
+        "password": "LabTech@2024",
+        "group": "lab",
+        "id": null,
+        "login_attempts": 0,
+        "locked_until": null
+    },
+    {
+        "user_name": "pharmacist",
+        "password": "Pharm@2021",
+        "group": "pharmacy",
+        "id": null,
+        "login_attempts": 0,
+        "locked_until": null
+    }
+]

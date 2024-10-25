@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log in</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+
+        body {
+            display: flex;
+            background-color: #fff;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .login-container {
+            width: 100%;
+            max-width: 450px;
+            margin: auto;
+            padding: 2rem;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            color: #1a1a1a;
+            font-weight: bold;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+        }
+
+        .input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: border-color 0.2s;
+        }
+
+        input[type="text"]:focus,
+        input[type="password"]:focus {
+            outline: none;
+            border-color: #FF0000;
+        }
+
+        .password-field {
+            position: relative;
+        }
+
+        .remember-forgot {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 1rem 0.5rem;
+        }
+
+        .remember-me {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .remember-me input[type="checkbox"] {
+            width: 16px;
+            height: 16px;
+        }
+
+        .forgot-password {
+            color: #FF0000;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .login-button {
+            width: 100%;
+            padding: 0.75rem;
+            background-color: #FF0000;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-top: 1.5rem;
+            transition: background-color 0.2s;
+        }
+
+        .login-button:hover {
+            background-color: #cc0000;
+        }
+
+        .divider {
+            text-align: center;
+            margin: 1.5rem 0;
+            position: relative;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            width: 45%;
+            height: 1px;
+            background-color: #ddd;
+        }
+
+        .divider::before {
+            left: 0;
+        }
+
+        .divider::after {
+            right: 0;
+        }
+
+        .logo-container {
+            text-align: center;
+            margin-top: 4rem;
+        }
+
+        .logo {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .provided-by {
+            text-align: center;
+            margin-bottom: 0.5rem;
+            color: #666;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="{{category}}">
+                    <strong>Warning!</strong> {{message}}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    <div class="login-container">
+        <h1>Log in</h1>
+        <form action="/login" method="POST">
+            <div class="form-group">
+                {% if config.USERSLISTLOGIN %}
+                    <select name="user_name" required class="input">
+                        <option value="">Select Username</option>
+                        {% for username in usernames %}
+                            <option value="{{ username }}">{{ username }}</option>
+                        {% endfor %}
+                    </select>
+                {% else %}
+                    <input type="text" name="user_name" class="input" placeholder="Username" required>
+                {% endif %}
+            </div>
+            
+            <div class="form-group">
+                <div class="password-field">
+                    <input class="input" type="password" name="password" placeholder="Password" required>
+                    <div class="password-requirements">
+                        {% if config.STRONGPASSWORD %}
+                            Password must contain at least one letter, one number, and one special character.
+                            Minimum length: {{ config.STRONGLENGTH }} characters.
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <div class="remember-forgot">
+                <label class="remember-me">
+                    <input type="checkbox" name="remember">
+                    <span>Remember me</span>
+                </label>
+                <a href="/" class="forgot-password">Forgot password?</a>
+            </div>
+
+            <button type="submit" class="login-button">Log in</button>
+        </form>
+        
+            <div class="logo-container">
+                <div class="provided-by">Provided by</div>
+                <img class="logo" src="{{ url_for('static', filename='images/logo_oh.png') }}">
+            </div>
+    </div>
+</body>
+</html>
